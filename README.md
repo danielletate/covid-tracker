@@ -1,4 +1,4 @@
-# covid-tracker-vue
+# Covid Tracker
 
 ## Project setup
 ```
