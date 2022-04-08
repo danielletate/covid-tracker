@@ -1,5 +1,7 @@
 <template>
-  <main v-if="!loading"></main>
+  <main v-if="!loading">
+    <DateComponent :dataDate="dataDate" :text="title" />
+  </main>
 
   <main v-else class="flex flex-col align-center justify-center text-center">
     <div class="text-gray-500 text-3xl mt-10 mb-6">Fetching Data</div>
@@ -12,21 +14,29 @@
 </template>
 
 <script>
+import DateComponent from "../components/DateComponent";
+
 export default {
   name: "HomeView",
-  components: {},
+  components: {
+    DateComponent,
+  },
   data() {
     return {
       loading: true,
       title: "Global Statistics",
-      date: "",
-      stats: {},
-      countries: [],
+      dataDate: "",
+      totalCases: "",
+      activeCases: "",
+      totalDeaths: "",
+      totalRecovered: "",
+      criticalCases: "",
+      affectedCountries: "",
       loadingImg: require("../assets/img/hourglass.gif"),
     };
   },
   methods: {
-    //   Fetch Covid Data
+    //   Fetch Global Covid Data
     async fetchCovidData() {
       const res = await fetch(
         "https://corona.lmao.ninja/v2/continents?yesterday=true&sort"
@@ -40,6 +50,7 @@ export default {
     console.log(data);
 
     this.loading = false;
+    this.dataDate = data.Date;
   },
 };
 </script>
